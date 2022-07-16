@@ -1,15 +1,15 @@
-const express = require('express');
+import express, { urlencoded, json } from 'express';
 const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const db = require('./models');
+import db from './models';
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(urlencoded({ extended: true }));
+app.use(json());
 
-mongoose.connect(
+connect(
     process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/populatedb',
     {
         useNewUrlParser: true,
@@ -17,7 +17,7 @@ mongoose.connect(
     }
 );
 
-mongoose.set('debug', true);
+set('debug', true);
 
 db.User.create({ name: 'John Doe' })
     .then(dbUser => {
