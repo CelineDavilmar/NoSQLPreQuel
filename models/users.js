@@ -11,14 +11,19 @@ const UserSchema = new Schema({
         unique: true,
         require: true,
     },
-    notes: [
+    thoughts: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Thoughts'
         }
+    ],
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     ]
 });
 
-const User = model('User', UserSchema);
-
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

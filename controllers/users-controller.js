@@ -34,7 +34,6 @@ const usersController = {
                 res.json(dbUData)
             })
             .catch(err => {
-                console.log(err);
                 res.status(400).json(err)
             })
     },
