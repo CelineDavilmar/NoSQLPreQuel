@@ -1,5 +1,5 @@
-import Note from './Note';
-import User from './User';
+const User = require("./Users");
+const Thoughts = require("./Thoughts");
 
-export default { Note, User };
+module.exports = { User, Thoughts };
 

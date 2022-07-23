@@ -1,15 +1,17 @@
-import express, { urlencoded, json } from 'express';
-const mongoose = require('mongoose');
+const express = require('express');
+//const mongoose = require('mongoose');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const routes = require("./routes");
 
-import db from './models';
+const db = require('./config/connection');
 
-app.use(urlencoded({ extended: true }));
-app.use(json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-connect(
+/* connect(
     process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/populatedb',
     {
         useNewUrlParser: true,
@@ -17,9 +19,9 @@ connect(
     }
 );
 
-set('debug', true);
+set('debug', true); */
 
-db.User.create({ name: 'John Doe' })
+/* db.User.create({ name: 'John Doe' })
     .then(dbUser => {
         console.log(dbUser);
     })
@@ -73,8 +75,11 @@ app.get('/populate', (req, res) => {
         .catch(err => {
             res.json(err);
         });
-});
+}); */
 
-app.listen(PORT, () => {
-    console.log(`App running on port ${PORT}!`);
-});
+db.once("open", () => {
+    console.log("db connected!")
+    app.listen(PORT, () => {
+        console.log(`App running on port ${PORT}!`);
+    });
+})
